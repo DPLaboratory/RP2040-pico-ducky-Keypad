@@ -370,6 +370,17 @@ def parseLine(line, script_lines):
         while evaluateExpression(condition) == True:
             currentIterCode = deepcopy(loopCode)
             print(loopCode)
+            # break loopCode if press a button
+            if buttons[0].value:  # Il pulsante è premuto (valore basso)
+                kbd.press(Keycode.ENTER)
+                kbd.release(Keycode.ENTER)
+                print("Breaking WHILE loop due to button press")
+                sendString("Breaking WHILE loop")
+                kbd.press(Keycode.ENTER)
+                kbd.release(Keycode.ENTER)
+                time.sleep(500/1000)
+                break
+
             while currentIterCode:
                 loopLine = currentIterCode.pop(0)
                 currentIterCode = list(parseLine(loopLine, iter(currentIterCode)))      #< very inefficient, should be replaced later.
@@ -502,7 +513,6 @@ def runPayload(iPayload):
     runScript(iPayload)
     print("Done")
     
-
 def runSelectPayload():
     for btn in range(0, 6):
         if buttons[btn].value:  # Il pulsante è premuto (valore basso)
@@ -511,7 +521,7 @@ def runSelectPayload():
                 runScript("script1.dd")
             elif(btn == 1):
                 runScript("script2.dd")
-            elif(btn == 2):
+            elif(btn == 2):            
                 runScript("script3.dd")
             elif(btn == 3):
                 runScript("script4.dd")
@@ -602,7 +612,7 @@ async def blink_pico_w_led(led):
         await asyncio.sleep(0.5)
 
 async def monitor_buttons():
-    print("starting monitor_buttons")
+    print(">> starting monitor_buttons <<")
     while True:
         runSelectPayload()
     await asyncio.sleep(0)

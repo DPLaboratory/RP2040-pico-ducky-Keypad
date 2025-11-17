@@ -1,2 +1,11 @@
-STRING Hello World btn 1
+STRING DPLab Script Keyboard
 ENTER
+STRING btn 1
+ENTER
+
+VAR $TIME = 60*15
+WHILE ($TIME > 0)
+	STRING .
+	DELAY 1000
+	$TIME = $TIME-1
+END_WHILE
