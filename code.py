@@ -7,7 +7,7 @@ import board
 import neopixel
 from duckyinpython import *
 
-currentMode = 0;
+currentMode = 0
 
 pixel = neopixel.NeoPixel(board.GP16, 1)
 pixel[0] = (0, 128, 255)
